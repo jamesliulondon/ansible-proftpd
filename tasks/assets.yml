@@ -1,0 +1,5 @@
+---
+- file: dest=/etc/proftpd.conf src=/vagrant/www/misc/sample_config/proftpd.conf 
+
+- file: dest=/ftp/incoming state=directory mode="o+rwx" owner=nginx group=nginx
+- file: dest=/var/log/proftpd state=directory mode="o+rwx" owner=nginx group=nginx

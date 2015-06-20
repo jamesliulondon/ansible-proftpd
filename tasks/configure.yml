@@ -1,0 +1,4 @@
+---
+
+- shell: mysql  < /vagrant/www/ftpadm/misc/database_structure_mysql/db_structure.sql
+  ignore_errors: yes

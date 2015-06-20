@@ -1,0 +1,5 @@
+---
+- include: packages.yml
+- include: assets.yml
+- include: configure.yml
+- include: control.yml

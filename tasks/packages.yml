@@ -1,0 +1,10 @@
+---
+- name: repo
+  yum: name=http://download.fedoraproject.org/pub/epel/6/i386/epel-release-6-8.noarch.rpm state=present
+
+- name: install packages  
+  yum : name={{ item }}  state=present
+  with_items:
+  - mysql-server
+  - proftpd
+  - proftpd-mysql
