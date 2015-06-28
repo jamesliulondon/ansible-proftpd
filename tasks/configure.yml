@@ -1,4 +1,6 @@
 ---
+- include_vars: defaults.yml
 
-- shell: mysql  < /vagrant/www/ftpadm/misc/database_structure_mysql/db_structure.sql
+- template: src=db_structure.sql.j2 dest={{PATH_WWW}}/{{PATH_ADMIN_DIR}}/misc/database_structure_mysql/db_structure.sql
+- shell: mysql  < /{{PATH_WWW}}/{{PATH_ADMIN_DIR}}/misc/database_structure_mysql/db_structure.sql
   ignore_errors: yes

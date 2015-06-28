@@ -1,10 +1,41 @@
 ---
+- include_vars: defaults.yml
+
 - name: repo
-  yum: name=http://download.fedoraproject.org/pub/epel/6/i386/epel-release-6-8.noarch.rpm state=present
+  yum: name=http://download.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm state=present
 
 - name: install packages  
   yum : name={{ item }}  state=present
   with_items:
+  - mysql
+  - mysql-devel
   - mysql-server
-  - proftpd
   - proftpd-mysql
+  - httpd-devel
+  - php
+  - php-mysql
+  - wget 
+  - glibc
+  - glibc-devel
+  - glibc-static
+  - zlib
+  - zlib-devel
+  - zlib-static
+
+- name: create proftpd_admin_root
+  file: path={{PATH_WWW}}/{{PATH_ADMIN_DIR}}  state=directory mode=0755
+  
+- name: create ftp root
+  file: path={{PATH_FTP}}  state=directory mode=0755
+
+- name: download proftpdadmin
+  get_url: url={{URL_PROFTPD_ADM}} dest=/root/proftpd.tar.gz mode=0440
+  ignore_errors: yes
+
+- name: unpack proftpdadmin
+  shell: /bin/tar zxvf /root/proftpd.tar.gz -C {{PATH_WWW}}/{{PATH_ADMIN_DIR}} --strip-components=1 
+  ignore_errors: yes
+
+
+- name: chmod configuration.xml
+  file:  path={{PATH_WWW}}/{{PATH_ADMIN_DIR}}/configuration.xml state=touch mode="u=rw,g=rw,o=rw"
